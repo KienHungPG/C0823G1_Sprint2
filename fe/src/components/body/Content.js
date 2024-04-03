@@ -1,64 +1,63 @@
-import ElectricRickshawIcon from '@mui/icons-material/ElectricRickshaw';
-import WifiCalling3Icon from '@mui/icons-material/WifiCalling3';
-import ReplayIcon from '@mui/icons-material/Replay';
-import SettingsIcon from '@mui/icons-material/Settings';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import * as service from '../service/Service';
-import { toast } from 'react-toastify';
+import ElectricRickshawIcon from "@mui/icons-material/ElectricRickshaw";
+import WifiCalling3Icon from "@mui/icons-material/WifiCalling3";
+import ReplayIcon from "@mui/icons-material/Replay";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import * as service from "../service/Service";
+import { toast } from "react-toastify";
 
 export function Content() {
   const navigate = useNavigate();
-  const [productList, setProductList] = useState([])
+  // const [productList, setProductList] = useState([])
   const [page, setPage] = useState(0);
   const [totalPage, setTotalPage] = useState();
   const [type, setType] = useState("null");
-  const getAllProducts = async (type = 'null', page = 0) => {
+  const getAllProducts = async (type = "null", page = 0) => {
     try {
-      const rs = await service.getAllProduct(type, page)
-      setProductList(() => [...productList, ...rs.data.content])
-      setTotalPage(rs.data.totalPages)
+      const rs = await service.getAllProduct(type, page);
+      // setProductList(() => [...productList, ...rs.data.content])
+      setTotalPage(rs.data.totalPages);
       console.log(rs.data.totalPages);
     } catch (error) {
-      navigate('/error')
+      // navigate('/error')
+      console.log(error);
     }
-
-  }
-  const getAllProductsNew = async (type = 'null', page = 0) => {
-    const rs = await service.getAllProduct(type, page)
-    setPage(0)
-    setProductList(rs.data.content)
-    setTotalPage(rs.data.totalPages)
+  };
+  const getAllProductsNew = async (type = "null", page = 0) => {
+    const rs = await service.getAllProduct(type, page);
+    setPage(0);
+    // setProductList(rs.data.content)
+    setTotalPage(rs.data.totalPages);
     console.log(rs.data.totalPages);
-  }
+  };
   const addCart = async (id) => {
-    await service.createShoppingcart(id, 1)
-    toast.success("Add to Cart successfully!!")
-  }
+    await service.createShoppingcart(id, 1);
+    toast.success("Add to Cart successfully!!");
+  };
   const loadMore = async () => {
-    await getAllProducts(type, page + 1)
+    await getAllProducts(type, page + 1);
     setPage(page + 1);
-  }
+  };
   const onclickType = async (type) => {
     if (type == 0) {
-      setType("null")
-      getAllProductsNew()
+      setType("null");
+      getAllProductsNew();
     } else if (type == 1) {
-      setType("STEAM FAN")
-      getAllProductsNew("STEAM FAN")
+      setType("STEAM FAN");
+      getAllProductsNew("STEAM FAN");
     } else if (type == 2) {
-      setType("STANDING FAN")
-      getAllProductsNew("STANDING FAN")
+      setType("STANDING FAN");
+      getAllProductsNew("STANDING FAN");
     } else if (type == 3) {
-      setType("WALL FAN")
-      getAllProductsNew("WALL FAN")
+      setType("WALL FAN");
+      getAllProductsNew("WALL FAN");
     }
-
-  }
+  };
   useEffect(() => {
     document.title = "Home";
     getAllProducts();
-  }, [])
+  }, []);
   return (
     <>
       {/* ======= Hero Section ======= */}
@@ -87,43 +86,57 @@ export function Content() {
         </div>
       </section>
       {/* End Hero */}
-      <main id="main" className='container'>
-        <div id="ctservicecmsblock" className='row'>
-
+      <main id="main" className="container">
+        <div id="ctservicecmsblock" className="row">
           <div className="service_container container">
             <div className="service-area">
               <div className="service-fourth service1">
-                <div className="service-icon icon1" ><ElectricRickshawIcon className='set w-100' /></div>
+                <div className="service-icon icon1">
+                  <ElectricRickshawIcon className="set w-100" />
+                </div>
                 <div className="service-content">
                   <div className="service-heading">Free Shipping</div>
-                  <div className="service-description">Lorem Ipsum is simply</div>
+                  <div className="service-description">
+                    Lorem Ipsum is simply
+                  </div>
                 </div>
               </div>
               <div className="service-fourth service2">
-                <div className="service-icon icon2" ><WifiCalling3Icon className='set w-100' /> </div>
+                <div className="service-icon icon2">
+                  <WifiCalling3Icon className="set w-100" />{" "}
+                </div>
                 <div className="service-content">
                   <div className="service-heading">Online Support</div>
-                  <div className="service-description">Lorem Ipsum is simply</div>
+                  <div className="service-description">
+                    Lorem Ipsum is simply
+                  </div>
                 </div>
               </div>
               <div className="service-fourth service3">
-                <div className="service-icon icon3" ><ReplayIcon className='set w-100' /></div>
+                <div className="service-icon icon3">
+                  <ReplayIcon className="set w-100" />
+                </div>
                 <div className="service-content">
                   <div className="service-heading">Money Back</div>
-                  <div className="service-description">Lorem Ipsum is simply</div>
+                  <div className="service-description">
+                    Lorem Ipsum is simply
+                  </div>
                 </div>
               </div>
               <div className="service-fourth service4">
-                <div className="service-icon icon4" ><SettingsIcon className='set w-100' /></div>
+                <div className="service-icon icon4">
+                  <SettingsIcon className="set w-100" />
+                </div>
                 <div className="service-content">
                   <div className="service-heading">Our Services</div>
-                  <div className="service-description">Lorem Ipsum is simply</div>
+                  <div className="service-description">
+                    Lorem Ipsum is simply
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
 
         <section id="fan" className="portfolio row">
           <div className="container">
@@ -158,7 +171,7 @@ export function Content() {
               data-aos="fade-up"
               data-aos-delay={400}
             >
-              {productList.map((value, index) => (
+              {/* {productList.map((value, index) => (
                 <div className="col-lg-4 col-md-6 portfolio-item filter-app">
                   <div className="portfolio-wrap">
                     <img
@@ -195,25 +208,140 @@ export function Content() {
                     </div>
                   </div>
                 </div>
-              ))}
+              ))} */}
+              <div className="col-lg-4 col-md-6 portfolio-item filter-app">
+                <div className="portfolio-wrap">
+                  <img src="https://tse1.mm.bing.net/th?id=OIP.Xno9T-m11qWyX6WVz0Uk8QHaE_&pid=Api&P=0&h=180" className="img-fluid" alt="" style={{ height:'250px', width:'300px'}} />
+                  <div className="portfolio-info">
+                    <h4>ABCD</h4>
+                    <h3 style={{ color: "white" }}>$300</h3>
+                    <p>EFGH</p>
+                    {/* {value.quantity < 1 ? (
+                      <h4 style={{ color: "red" }}>Out of stock</h4>
+                    ) : (
+                      <></>
+                    )} */}
+                    <h4 style={{ color: "red" }}>Out of stock</h4>
 
+                    <div className="portfolio-links">
+                      <a
+                        href="https://tcorder.vn/wp-content/uploads/2021/05/quat-mini-cam-tay-ban-nhieu-tren-shopee-3.jpg"
+                        data-gallery="portfolioGallery"
+                        className="portfolio-lightbox"
+                        title="App 1"
+                      >
+                        <i className="bx bx-plus" />
+                      </a>
+                      {/* <a onClick={() => addCart(value)} title="Add to Cart">
+                        <i className="bi bi-plus" />
+                      </a> */}
 
+                      {/* <NavLink to={`/details/${value.id}`} title="More Details">
+                        <i className="bi bi-link-45deg" />
+                      </NavLink> */}
+                      <a href="/" title="Add to Cart">
+                        <i className="bi bi-plus" />
+                      </a>
+                      <NavLink to="/" title="More Details">
+                        <i className="bi bi-link-45deg" />
+                      </NavLink>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-4 col-md-6 portfolio-item filter-app">
+                <div className="portfolio-wrap">
+                  <img src="https://cdn.tgdd.vn/Files/2020/03/11/1241419/c16_800x710.jpg" className="img-fluid" alt="" style={{ height:'250px', width:'300px'}} />
+                  <div className="portfolio-info">
+                    <h4>ABCD</h4>
+                    <h3 style={{ color: "white" }}>$300</h3>
+                    <p>EFGH</p>
+                    {/* {value.quantity < 1 ? (
+                      <h4 style={{ color: "red" }}>Out of stock</h4>
+                    ) : (
+                      <></>
+                    )} */}
+                    <h4 style={{ color: "red" }}>Out of stock</h4>
+
+                    <div className="portfolio-links">
+                      <a
+                        href="https://tcorder.vn/wp-content/uploads/2021/05/quat-mini-cam-tay-ban-nhieu-tren-shopee-3.jpg"
+                        data-gallery="portfolioGallery"
+                        className="portfolio-lightbox"
+                        title="App 1"
+                      >
+                        <i className="bx bx-plus" />
+                      </a>
+                      {/* <a onClick={() => addCart(value)} title="Add to Cart">
+                        <i className="bi bi-plus" />
+                      </a> */}
+
+                      {/* <NavLink to={`/details/${value.id}`} title="More Details">
+                        <i className="bi bi-link-45deg" />
+                      </NavLink> */}
+                      <a href="/" title="Add to Cart">
+                        <i className="bi bi-plus" />
+                      </a>
+                      <NavLink to="/" title="More Details">
+                        <i className="bi bi-link-45deg" />
+                      </NavLink>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-4 col-md-6 portfolio-item filter-app">
+                <div className="portfolio-wrap">
+                  <img src="https://toigingiuvedep.vn/wp-content/uploads/2021/08/hinh-anh-dong-ho-dep-chat-nhat.jpg" className="img-fluid" alt="" style={{ height:'250px', width:'300px'}} />
+                  <div className="portfolio-info">
+                    <h4>ABCD</h4>
+                    <h3 style={{ color: "white" }}>$300</h3>
+                    <p>EFGH</p>
+                    {/* {value.quantity < 1 ? (
+                      <h4 style={{ color: "red" }}>Out of stock</h4>
+                    ) : (
+                      <></>
+                    )} */}
+                    <h4 style={{ color: "red" }}>Out of stock</h4>
+
+                    <div className="portfolio-links">
+                      <a
+                        href="https://tcorder.vn/wp-content/uploads/2021/05/quat-mini-cam-tay-ban-nhieu-tren-shopee-3.jpg"
+                        data-gallery="portfolioGallery"
+                        className="portfolio-lightbox"
+                        title="App 1"
+                      >
+                        <i className="bx bx-plus" />
+                      </a>
+                      {/* <a onClick={() => addCart(value)} title="Add to Cart">
+                        <i className="bi bi-plus" />
+                      </a> */}
+
+                      {/* <NavLink to={`/details/${value.id}`} title="More Details">
+                        <i className="bi bi-link-45deg" />
+                      </NavLink> */}
+                      <a href="/" title="Add to Cart">
+                        <i className="bi bi-plus" />
+                      </a>
+                      <NavLink to="/" title="More Details">
+                        <i className="bi bi-link-45deg" />
+                      </NavLink>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            {
-              page < totalPage - 1 ? (
-                <button onClick={() => loadMore()} className="load-more-button">Load More</button>
-
-              ) : (<></>)
-            }
+            {page < totalPage - 1 ? (
+              <button onClick={() => loadMore()} className="load-more-button">
+                Load More
+              </button>
+            ) : (
+              <></>
+            )}
           </div>
         </section>
         {/* End Portfolio Section */}
       </main>
       {/* End #main */}
-
-
-
     </>
-
-  )
+  );
 }
